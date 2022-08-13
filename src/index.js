@@ -14,11 +14,12 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
   captionsData: 'alt',
 });
+
 refs.form.addEventListener('submit', showGallery);
 refs.loadMoreBtn.addEventListener('click', loadMore);
 refs.goTopBtn.addEventListener('click', onTop);
 
-refs.loadMoreBtn.classList.add('.is-hidden');
+refs.loadMoreBtn.classList.add('is-hidden');
 
 // Экземпляр класса
 const newImageApiService = new ImageApiService();
@@ -31,7 +32,8 @@ async function showGallery(e) {
     newImageApiService.resetPage();
     // console.log(newImageApiService.value);
 
-  if (newImageApiService.query === '') {
+    if (newImageApiService.query === '') {
+      Notify.warning('Enter your search query');
     return;
   }
   if (newImageApiService.query !== '') {
@@ -49,7 +51,7 @@ async function loadMore() {
   try {
     refs.loadMoreBtn.classList.add('is-hidden');
     const response = await newImageApiService.fetchFotoUrl();
-    refs.loadMoreBtn.classList.remove('.is-hidden');
+    refs.loadMoreBtn.classList.remove('is-hidden');
     createImageElement(response);
   } catch (error) {
     console.error(error);
@@ -62,17 +64,22 @@ function onTop(e) {
 }
 
 function createImageElement(images) {
-  console.log(images);
+//   console.log(images);
   // console.log(newImageApiService.page);
     const imageArray = images.data.hits;
-    // if (imageArray.length < 1) {
-    //     throw new Error(
-    //       'Sorry, there are no images matching your search query. Please try again.'
-    //     );
-    // }
+    // console.log(imageArray.length);
+    if (imageArray.length === 0) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again'
+        );
+        throw new Error(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+        
+    }
 //     console.log(newImageApiService.page * imageArray.length);
 //   console.log(images.data.totalHits);
-  if (imageArray !== 0) {
+    if (imageArray !== 0) {
     if (images.data.totalHits < newImageApiService.page * imageArray.length) {
       refs.loadMoreBtn.classList.add('is-hidden');
       Notify.info(`We're sorry, but you've reached the end of search results.`);
@@ -110,7 +117,8 @@ function createImageElement(images) {
       )
       .join('');
     refs.gallery.insertAdjacentHTML('beforeend', markup);
-    lightbox.refresh();
+        lightbox.refresh();
+        // console.log(imageArray.length);
   } else {
     refs.loadMoreBtn.classList.add('is-hidden');
     Notify.failure(
