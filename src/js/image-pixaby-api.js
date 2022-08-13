@@ -11,7 +11,7 @@ export default class ImageApiService {
 
     async fetchFotoUrl() {
         const searchParams = new URLSearchParams({
-          q: this.searchQuery,
+          q:`${this.searchQuery}`,
           image_type: 'photo',
           orientation: 'horizontal',
           safesearch: true,
@@ -19,7 +19,7 @@ export default class ImageApiService {
           page: this.page,
         });
         const response = await axios.get(
-           `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&${searchParams}`
+           `${BASE_URL}?key=${API_KEY}&${searchParams}`
         )
        
         this.incrementPage();
@@ -40,6 +40,6 @@ export default class ImageApiService {
     }
 
     set query(newQuery) {
-        this.query = newQuery
+        this.searchQuery = newQuery;
     }
 }

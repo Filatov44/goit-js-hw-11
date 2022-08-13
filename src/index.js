@@ -27,13 +27,14 @@ async function showGallery(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
 
-  newImageApiService.value = e.currentTarget.elements.searchQuery.value.trim();
-  newImageApiService.resetPage();
+  newImageApiService.query = e.currentTarget.elements.searchQuery.value.trim();
+    newImageApiService.resetPage();
+    // console.log(newImageApiService.value);
 
-  if (newImageApiService.value === '') {
+  if (newImageApiService.query === '') {
     return;
   }
-  if (newImageApiService.value !== '') {
+  if (newImageApiService.query !== '') {
     try {
       const response = await newImageApiService.fetchFotoUrl();
       refs.loadMoreBtn.classList.remove('is-hidden');
@@ -63,9 +64,14 @@ function onTop(e) {
 function createImageElement(images) {
   console.log(images);
   // console.log(newImageApiService.page);
-  const imageArray = images.data.hits;
-  console.log(newImageApiService.page * imageArray.length);
-  console.log(images.data.totalHits);
+    const imageArray = images.data.hits;
+    // if (imageArray.length < 1) {
+    //     throw new Error(
+    //       'Sorry, there are no images matching your search query. Please try again.'
+    //     );
+    // }
+//     console.log(newImageApiService.page * imageArray.length);
+//   console.log(images.data.totalHits);
   if (imageArray !== 0) {
     if (images.data.totalHits < newImageApiService.page * imageArray.length) {
       refs.loadMoreBtn.classList.add('is-hidden');
