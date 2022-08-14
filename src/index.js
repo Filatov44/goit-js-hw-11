@@ -24,9 +24,12 @@ refs.loadMoreBtn.classList.add('is-hidden');
 // Экземпляр класса
 const newImageApiService = new ImageApiService();
 
+
+
 async function showGallery(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
+  refs.loadMoreBtn.classList.add('is-hidden');
 
   newImageApiService.query = e.currentTarget.elements.searchQuery.value.trim();
     newImageApiService.resetPage();

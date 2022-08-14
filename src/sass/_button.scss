@@ -1,5 +1,5 @@
 .load-more {
-    display: block;
+   display: flex;
     margin: 30px auto;
     padding: 10px 32px;
     color: #ffffff;
@@ -19,6 +19,10 @@
     &:focus {
     background-color: #0b83e6;
     }
+}
+
+.load-more.is-hidden {
+    display:none;
 }
 
 .go-top {
