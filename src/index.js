@@ -98,16 +98,16 @@ function createImageElement(images) {
           return `<div class="photo-card"><a class="gallery__item" href="${largeImageURL}">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
             <div class="info">
-                <p class="info-item">
+                <p class="info-item red">
                 <b><span>Likes:</span> ${likes}</b>
                 </p>
-                <p class="info-item">
+                <p class="info-item blue">
                 <b><span>Views:</span> ${views}</b>
                 </p>
-                <p class="info-item">
+                <p class="info-item violet">
                 <b><span>Comments:</span> ${comments}</b>
                 </p>
-                <p class="info-item">
+                <p class="info-item green">
                 <b><span>Downloads:</span> ${downloads}</b>
                 </p>
             </div>
