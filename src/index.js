@@ -67,21 +67,19 @@ function onTop(e) {
 }
 
 function createImageElement(images) {
-//   console.log(images);
-  // console.log(newImageApiService.page);
+
     const imageArray = images.data.hits;
-    // console.log(imageArray.length);
+ 
     if (imageArray.length === 0) {
-        Notify.failure(
+      refs.loadMoreBtn.classList.add('is-hidden');
+      Notify.failure(
           'Sorry, there are no images matching your search query. Please try again'
         );
         throw new Error(
           'Sorry, there are no images matching your search query. Please try again.'
-        );
-        
-    }
-//     console.log(newImageApiService.page * imageArray.length);
-//   console.log(images.data.totalHits);
+        );  
+  }
+  
     if (imageArray !== 0) {
     if (images.data.totalHits < newImageApiService.page * imageArray.length) {
       refs.loadMoreBtn.classList.add('is-hidden');
@@ -121,7 +119,7 @@ function createImageElement(images) {
       .join('');
     refs.gallery.insertAdjacentHTML('beforeend', markup);
         lightbox.refresh();
-        // console.log(imageArray.length);
+        
   } else {
     refs.loadMoreBtn.classList.add('is-hidden');
     Notify.failure(
